@@ -1,11 +1,12 @@
-import 'package:blog/pages/post/detail_page.dart';
-import 'package:blog/pages/post/write_page.dart';
-import 'package:blog/pages/user/login_page.dart';
+
 import 'package:blog/size.dart';
+import 'package:blog/view/pages/post/write_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../user/login_page.dart';
 import '../user/user_info.dart';
+import 'detail_page.dart';
 
 
 class HomePage extends StatelessWidget {

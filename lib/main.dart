@@ -1,9 +1,8 @@
-import 'package:blog/pages/post/home_page.dart';
-import 'package:blog/pages/user/join_page.dart';
+import 'package:blog/view/pages/post/home_page.dart';
+import 'package:blog/view/pages/user/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'pages/user/login_page.dart';
 
 void main() {
   runApp(MyApp());

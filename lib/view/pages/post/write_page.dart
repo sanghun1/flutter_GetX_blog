@@ -1,10 +1,11 @@
-import 'package:blog/components/custom_text_form_field.dart';
-import 'package:blog/components/custom_textarea.dart';
+
 import 'package:blog/util/validator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/custom_elevated_button.dart';
+import '../../components/custom_text_form_field.dart';
+import '../../components/custom_textarea.dart';
 import 'home_page.dart';
 
 class WritePage extends StatelessWidget {

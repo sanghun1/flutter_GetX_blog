@@ -1,14 +1,18 @@
-import 'package:blog/components/custom_elevated_button.dart';
-import 'package:blog/components/custom_text_form_field.dart';
-import 'package:blog/util/validator_util.dart';
+
+import 'package:blog/controller/user_controller.dart';
+import 'package:blog/domain/user/user_repositioy.dart';
 import 'package:flutter/material.dart';
-import 'package:validators/validators.dart';
 import 'package:get/get.dart';
 
-import 'login_page.dart';
+import '../../../util/validator_util.dart';
+import '../../components/custom_elevated_button.dart';
+import '../../components/custom_text_form_field.dart';
+import '../post/home_page.dart';
+import 'join_page.dart';
 
-class JoinPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  UserController u = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +25,21 @@ class JoinPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 200,
               child: Text(
-                "회원가입 페이지",
+                "로그인 페이지",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            _joinForm(),
+            _loginForm(),
           ],
         ),
       ),
     );
   }
 
-  Widget _joinForm() {
+  Widget _loginForm() {
     return Form(
       key: _formKey,
       child: Column(
@@ -48,24 +52,22 @@ class JoinPage extends StatelessWidget {
             hint: 'Password',
             funValidator: validatePassword(),
           ),
-          CustomTextFormfield(
-            hint: 'Email',
-            funValidator: validateEmail(),
-          ),
           CustomElevatedButton(
-            text: '회원가입',
+            text: '로그인',
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(LoginPage());
+                // Get.to(HomePage());
+                // UserRepository u = UserRepository();
+                u.login("ssar", "1234");
               }
             },
           ),
           TextButton(
             onPressed: () {
-              Get.to(LoginPage());
+              Get.to(JoinPage());
             },
-            child: Text("로그인 페이지로 이동"),
-          )
+            child: Text("아직 회원가입이 안되어 있나요?"),
+          ),
         ],
       ),
     );

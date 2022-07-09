@@ -1,13 +1,14 @@
-import 'package:blog/components/custom_elevated_button.dart';
-import 'package:blog/components/custom_text_form_field.dart';
+
+import 'package:blog/util/validator_util.dart';
 import 'package:flutter/material.dart';
+import 'package:validators/validators.dart';
 import 'package:get/get.dart';
-import '../../util/validator_util.dart';
 
-import '../post/home_page.dart';
-import 'join_page.dart';
+import '../../components/custom_elevated_button.dart';
+import '../../components/custom_text_form_field.dart';
+import 'login_page.dart';
 
-class LoginPage extends StatelessWidget {
+class JoinPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -21,21 +22,21 @@ class LoginPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 200,
               child: Text(
-                "로그인 페이지",
+                "회원가입 페이지",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            _loginForm(),
+            _joinForm(),
           ],
         ),
       ),
     );
   }
 
-  Widget _loginForm() {
+  Widget _joinForm() {
     return Form(
       key: _formKey,
       child: Column(
@@ -48,20 +49,24 @@ class LoginPage extends StatelessWidget {
             hint: 'Password',
             funValidator: validatePassword(),
           ),
+          CustomTextFormfield(
+            hint: 'Email',
+            funValidator: validateEmail(),
+          ),
           CustomElevatedButton(
-            text: '로그인',
+            text: '회원가입',
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(HomePage());
+                Get.to(LoginPage());
               }
             },
           ),
           TextButton(
             onPressed: () {
-              Get.to(JoinPage());
+              Get.to(LoginPage());
             },
-            child: Text("아직 회원가입이 안되어 있나요?"),
-          ),
+            child: Text("로그인 페이지로 이동"),
+          )
         ],
       ),
     );
