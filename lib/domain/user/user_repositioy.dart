@@ -10,9 +10,15 @@ class UserRepository{
     LoginResDto loginResDto = LoginResDto(username, password);
     Response response = await _userProvider.login(loginResDto.toJson());
     dynamic headers = response.headers;
-    String token = headers["authorization"];
-    return token;
-    // print(headers);
-    // return "";
+
+    if(headers["authorization"] == null){
+      return "-1";
+    }
+    else{
+      String token = headers["authorization"];
+      return token;
+    }
+
+
   }
 }

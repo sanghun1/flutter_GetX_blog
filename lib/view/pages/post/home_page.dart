@@ -1,4 +1,5 @@
 
+import 'package:blog/controller/user_controller.dart';
 import 'package:blog/size.dart';
 import 'package:blog/view/pages/post/write_page.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,14 @@ import 'detail_page.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // put 없으면 만들고, 있으면 찾기
+    UserController u = Get.find();
+
     return Scaffold(
       drawer: _navigation(context),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("${u.isLogin}"),
+      ),
       body: ListView.separated(
         itemCount: 20,
         itemBuilder: (context, index) {
@@ -34,7 +40,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _navigation(BuildContext context) {
+    UserController u = Get.find();
     return Container(
+
       width: getDrawerWidth(context),
       height: double.infinity,
       color: Colors.white,
@@ -73,6 +81,7 @@ class HomePage extends StatelessWidget {
             Divider(),
             TextButton(
               onPressed: () {
+                u.logout();
                 Get.to(LoginPage());
               },
               child: Text(
