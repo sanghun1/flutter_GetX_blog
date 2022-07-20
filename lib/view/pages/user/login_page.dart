@@ -62,8 +62,8 @@ class LoginPage extends StatelessWidget {
               if (_formKey.currentState!.validate()) {
                 // Get.to(HomePage());
                 // UserRepository u = UserRepository();
-                String token = await u.login(_username.text.trim(), _password.text.trim());
-                if (token != "-1") {
+                int result = await u.login(_username.text.trim(), _password.text.trim());
+                if (result == 1) {
                   Get.to(HomePage());
                 }
                 else{

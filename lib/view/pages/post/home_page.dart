@@ -1,10 +1,12 @@
 
+import 'package:blog/controller/post_controller.dart';
 import 'package:blog/controller/user_controller.dart';
 import 'package:blog/size.dart';
 import 'package:blog/view/pages/post/write_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../domain/post/post.dart';
 import '../user/login_page.dart';
 import '../user/user_info.dart';
 import 'detail_page.dart';
@@ -15,27 +17,31 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // put 없으면 만들고, 있으면 찾기
     UserController u = Get.find();
+    // 객체 생성(create) onInit 함수 실행 (initialize)
+    PostController p = Get.put(PostController());
+    // p.findAll();
 
     return Scaffold(
       drawer: _navigation(context),
       appBar: AppBar(
         title: Text("${u.isLogin}"),
       ),
-      body: ListView.separated(
-        itemCount: 20,
+      body: Obx(() => ListView.separated(
+        itemCount: p.posts.length,
         itemBuilder: (context, index) {
           return ListTile(
-            onTap: () {
-              Get.to(DetailPage(index), arguments: "arguments 속성 테스트");
+            onTap: () async {
+              await p.findById(p.posts[index].id!);
+              Get.to(() => DetailPage(p.posts[index].id), arguments: "arguments 속성 테스트");
             },
-            title: Text("제목1"),
-            leading: Text("1"),
+            title: Text("${p.posts[index].title}"),
+            leading: Text("${p.posts[index].id}"),
           );
         },
         separatorBuilder: (context, index) {
           return Divider();
         },
-      ),
+      )),
     );
   }
 
