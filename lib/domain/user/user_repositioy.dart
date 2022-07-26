@@ -19,7 +19,7 @@ class UserRepository {
     CMRespDto cmRespDto = CMRespDto.fromJson(body);
 
     if (cmRespDto.code == 1) {
-      User principal = User.fromJson(body);
+      User principal = User.fromJson(cmRespDto.data);
 
       String token = headers["authorization"];
 

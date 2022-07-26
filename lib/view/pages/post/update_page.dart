@@ -1,3 +1,4 @@
+import 'package:blog/controller/post_controller.dart';
 import 'package:blog/util/validator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,14 @@ import 'home_page.dart';
 
 class UpdatePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  final _title = TextEditingController();
+  final _content = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final PostController p = Get.find();
+    _title.text = "${p.post.value.title}";
+    _content.text = "${p.post.value.content}";
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -22,19 +28,22 @@ class UpdatePage extends StatelessWidget {
           child: ListView(
             children: [
               CustomTextFormfield(
+                controller: _title,
                 hint: "title",
                 funValidator: validateTitle(),
-                value: "제목1~" * 2,
+                // value: "${p.post.value.title}",
               ),
               CustomTextArea(
+                controller: _content,
                 hint: "content",
                 funValidator: validateContent(),
-                value: "내용1" * 20,
+                // value: "${p.post.value.content}",
               ),
               CustomElevatedButton(
                 text: '글 수정하기',
-                funPageRoute: () {
+                funPageRoute: () async{
                   if (_formKey.currentState!.validate()) {
+                    await p.updateById(p.post.value.id ?? 0, _title.text, _content.text);
                     Get.back();
                   }
                 },
